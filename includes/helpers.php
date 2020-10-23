@@ -94,6 +94,11 @@
         {
             return false;
         }
+        $data = fgetcsv($handle);
+        if ($data === false || count($data) == 1)
+        {
+            return false;
+        }
 
         // close connection to Yahoo
         fclose($handle);
@@ -106,9 +111,9 @@
 
         // return stock as an associative array
         return [
-            "symbol" => strtoupper($data[0]),
-            "name" => $data[1],
-            "price" => floatval($data[2])
+            "symbol" => strtoupper($symbol),
+            "name" => $symbol,
+            "price" => floatval($data[4])
         ];
     }
 

@@ -11,10 +11,15 @@ require("../includes/config.php");
     // else if user reached page via POST (as by submitting a form via POST)
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-      if (empty($_POST["symbol"])) 
+      if (empty($_POST["Symbol"])) 
       {
           apologize("Please insert symbol");
       } 
+      $symbol = $_POST["Symbol"];
+      $stock = lookup($symbol);
+      //dump($stock);
+      render ("quote_form.php", ["title" => "Quote", "stock_symbol"=> $symbol,"price" => $stock["price"]]);
+
         
     }
 
