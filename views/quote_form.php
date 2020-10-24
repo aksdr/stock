@@ -12,5 +12,5 @@
     </fieldset>
 </form>
 <div>
-   <?php echo $stock_symbol.":".$price ?>
+   <?php echo <span> $stock_symbol.":".$price </span>?>
 </div>
