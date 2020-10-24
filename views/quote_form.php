@@ -1,5 +1,7 @@
 <form action="quote.php" method="post">
     <fieldset>
+        <div class="info">Insert a serching company symbol</div>
+        <br>
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="Symbol" placeholder="IBM" type="text"/>
         </div>
@@ -12,5 +14,5 @@
     </fieldset>
 </form>
 <div>
-   <?php echo <span> $stock_symbol.":".$price </span>?>
+   <?php echo "<span>".$stock_symbol.":".$price."</span>"?>
 </div>

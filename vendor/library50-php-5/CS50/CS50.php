@@ -317,15 +317,10 @@
             // ensure number of placeholders matches number of values
             // http://stackoverflow.com/a/22273749
             // https://eval.in/116177
-            $pattern = "
-                /(?:
-                '[^'\\\\]*(?:(?:\\\\.|'')[^'\\\\]*)*'
-                | \"[^\"\\\\]*(?:(?:\\\\.|\"\")[^\"\\\\]*)*\"
-                | `[^`\\\\]*(?:(?:\\\\.|``)[^`\\\\]*)*`
-                )(*SKIP)(*F)| \?
-                /x
-            ";
+            $pattern = "/(?:'[^'\\\\]*(?:(?:\\\\.|'')[^'\\\\]*)*'|\"[^\"\\\\]*(?:(?:\\\\.|\"\")[^\"\\\\]*)*\"|`[^`\\\\]*(?:(?:\\\\.|``)[^`\\\\]*)*`)(*SKIP)(*F)|\?/x";
+            //dump($pattern);
             preg_match_all($pattern, $sql, $matches);
+            //dump($matches[0]);
             if (count($matches[0]) < count($parameters))
             {
                 trigger_error("Too few placeholders in query", E_USER_ERROR);

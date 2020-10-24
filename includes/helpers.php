@@ -144,7 +144,14 @@
         
         // if view exists, render it
         if (file_exists("../views/{$view}"))
-        {
+        {   
+            foreach($values as $key => $value) 
+            {
+                if (!$value)
+                {
+                    $value = "";
+                }
+            }
             // extract variables into local scope
             extract($values);
 
