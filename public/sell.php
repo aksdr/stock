@@ -6,7 +6,7 @@ require("../includes/config.php");
     if ($_SERVER["REQUEST_METHOD"] == "GET")
     {
         // else render form
-        render("sell_form.php", ["title" => "Sell", "stock_symbol"=> "","price" => ""]);
+        render("sell_form.php", ["title" => "Sell", "stock_symbol"=> "","price" => "","selling"=>false,"positions"=>false]);
     }
 
     // else if user reached page via POST (as by submitting a form via POST)
@@ -34,7 +34,7 @@ require("../includes/config.php");
         }
 
         
-      render ("sell_form.php", ["title" => "Sell", "positions"=> $positions,"share"=>$share,"Symbol"=>$symbol]);
+      render ("sell_form.php", ["title" => "Sell", "positions"=> $positions,"share"=>$share,"Symbol"=>$symbol,"selling"=>true]);
 
         
     }

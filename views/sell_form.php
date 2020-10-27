@@ -1,11 +1,11 @@
 <form action="sell.php" method="post">
     <fieldset>
-        <div class="info">Insert a symbol of company you want to sell</div>
-        <br>
+        <div class="help-block">Insert a symbol of company you want to sell</div>
+        
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="Symbol" placeholder="IBM" type="text"/>
         </div>
-        <div class="info">Insert a share of company you want to sell</div>
+        <div class="help-block">Insert a share of company you want to sell</div>
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="share" placeholder="1" type="text"/>
         </div>
@@ -18,26 +18,28 @@
     </fieldset>
 </form>
 <div>
-    <p>
-        <?php
+    
+    <?php
         if ($selling)
         {
-            echo "You sold {$share} percents of {$Symbol}<b/r>" ?>
-            <table class= "table table-bordered">
-<?php
+            echo "You sold {$share} percents of {$Symbol}<b/r>" ;
+        }
 
-        foreach ($positions as $position)
+            echo '<table class= "table table-bordered">';
+   
+        if ($positions) 
         {
-            print("<tr>");
-            print("<td>" . $position["symbol"] . "</td>");
-            print("<td>" . $position["share"] . "</td>");
-            print("<td>" . $position["price"] . "</td>");
-            print("</tr>");
+        foreach ($positions as $position)
+            {
+                print("<tr>");
+                print("<td>" . $position["symbol"] . "</td>");
+                print("<td>" . $position["share"] . "</td>");
+                print("<td>" . $position["price"] . "</td>");
+                print("</tr>");
+            }
         }
+        
 
-    ?>
-</table>
-        }
-        ?>
-    </p>
+    ?> 
+            </table>
     </div>
