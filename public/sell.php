@@ -24,6 +24,7 @@ require("../includes/config.php");
       $share = $_POST["share"];
       //dump($stock);
       $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
+      //dump($positions);
     
         for ($i = 0; $i < count($positions); $i++) 
         {
@@ -31,6 +32,15 @@ require("../includes/config.php");
             
             $positions[$i]["price"] = $price["price"];
             //dump($position);
+            if ($positions[$i]["share"] > $share)
+            {
+                $count = $positions[$i]["share"] - $share;
+                $insert = CS50::query("UPDATE `portfolio` SET `share` = ? WHERE `portfolio`.`user_id` = ?",$count,$_SESSION["id"]);
+            }
+            else if ($positions[$i]["share"] == $share)
+            {
+
+            }
         }
 
         

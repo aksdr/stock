@@ -1,7 +1,7 @@
 <form action="sell.php" method="post">
     <fieldset>
         <div class="help-block">Insert a symbol of company you want to sell</div>
-        
+        <!-- need to add here a select instead of input!!! -->
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="Symbol" placeholder="IBM" type="text"/>
         </div>
