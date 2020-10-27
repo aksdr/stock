@@ -23,7 +23,7 @@
         <?php
             if ($selling)
             {
-                echo "You sold {$share} percents of {$Symbol}<b/r>" ;
+                echo $message ;
             }
 
                 echo '<table class= "table table-bordered">';

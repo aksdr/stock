@@ -25,26 +25,43 @@ require("../includes/config.php");
       //dump($stock);
       $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
       //dump($positions);
-    
+      $message = "You sold {$share} percents of {$symbol}<b/r>";
+        
+        for ($i = 0; $i < count($positions); $i++) 
+        {
+         
+            if ($positions[$i]["symbol"] == $symbol) 
+            {
+                if ($positions[$i]["share"] > $share )
+                {
+                    $count = $positions[$i]["share"] - $share;
+                    $insert = CS50::query("UPDATE `portfolio` SET `share` = ? WHERE `portfolio`.`id` = ?",$count,$positions[$i]["id"]);
+                }
+                else if ($positions[$i]["share"] == $share)
+                {
+                    $insert = CS50::query("DELETE FROM `portfolio` WHERE `portfolio`.`id` = ?",$positions[$i]["id"]);
+                }
+                else 
+                {
+                    $message = "You don't have enouth share";
+
+                }
+            }
+        }
+
+        $shares = CS50::query("SELECT `share` FROM portfolio WHERE user_id = ? && symbol = ?",$_SESSION["id"],$symbol);
+        $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
+        
         for ($i = 0; $i < count($positions); $i++) 
         {
             $price = lookup($positions[$i]["symbol"]);
             
             $positions[$i]["price"] = $price["price"];
-            //dump($position);
-            if ($positions[$i]["share"] > $share)
-            {
-                $count = $positions[$i]["share"] - $share;
-                $insert = CS50::query("UPDATE `portfolio` SET `share` = ? WHERE `portfolio`.`user_id` = ?",$count,$_SESSION["id"]);
-            }
-            else if ($positions[$i]["share"] == $share)
-            {
-
-            }
         }
 
+        //dump($shares);
         
-      render ("sell_form.php", ["title" => "Sell", "positions"=> $positions,"share"=>$share,"Symbol"=>$symbol,"selling"=>true]);
+      render ("sell_form.php", ["title" => "Sell", "positions"=> $positions,"share"=>$share,"Symbol"=>$symbol,"selling"=>true,"message"=>$message]);
 
         
     }
