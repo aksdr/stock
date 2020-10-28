@@ -4,9 +4,16 @@ require("../includes/config.php");
 
 // if user reached page via GET (as by clicking a link or via redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET")
-    {
+    {   
+        $symbols=[];
+        $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
+        foreach ($positions as $pos)
+        {
+            array_push($symbols,$pos["symbol"]);
+        }
+        //dump($symbols);
         // else render form
-        render("sell_form.php", ["title" => "Sell", "stock_symbol"=> "","price" => "","selling"=>false,"positions"=>false]);
+        render("sell_form.php", ["title" => "Sell", "stock_symbol"=> "","price" => "","selling"=>false,"positions"=>false,"symbols"=>$symbols]);
     }
 
     // else if user reached page via POST (as by submitting a form via POST)

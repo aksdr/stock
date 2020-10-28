@@ -5,12 +5,19 @@
         <!-- <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="Symbol" placeholder="IBM" type="text"/>
         </div> -->
-        <div class= "dropdown" id="drop">
-            <button  class="btn btn-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Symbol
+        <div class= "dropdown" style = "
+        width: auto;
+    display: inline-block;
+        ">
+            <button  class="btn btn1 btn-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Symbol
             <span class="caret"></span></button>
             <ul class="dropdown-menu " id="drop">
-                <li class= "dropdown-item " ><a href="#">IBM</a></li>
-                <li class= "dropdown-item " ><a href="#">AMD</a></li>
+                <?php
+                foreach ($symbols as $sym)
+                {
+                echo "<li class= 'dropdown-item ' ><a href='#'>{$sym}</a></li>";
+                }
+               ?>
 
             </ul>
         </div>
