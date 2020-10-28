@@ -2,12 +2,22 @@
     <fieldset>
         <div class="help-block">Insert a symbol of company you want to sell</div>
         <!-- need to add here a select instead of input!!! -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="Symbol" placeholder="IBM" type="text"/>
+        </div> -->
+        <div class= "dropdown" id="drop">
+            <button  class="btn btn-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Symbol
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu " id="drop">
+                <li class= "dropdown-item " ><a href="#">IBM</a></li>
+                <li class= "dropdown-item " ><a href="#">AMD</a></li>
+
+            </ul>
         </div>
         <div class="help-block">Insert a share of company you want to sell</div>
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="share" placeholder="1" type="text"/>
+            
         </div>
         <div class="form-group">
             <button class="btn btn-default" type="submit">
