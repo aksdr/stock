@@ -20,7 +20,7 @@ function get_symbols()
         
         //dump($symbols);
         // else render form
-        render("sell_form.php", ["title" => "Sell", "stock_symbol"=> "","price" => "","selling"=>false,"positions"=>false,"symbols"=>$symbols]);
+        render("buy_form.php", ["title" => "Buy", "stock_symbol"=> "","price" => "","selling"=>false,"positions"=>false,"symbols"=>$symbols]);
     }
 
     // else if user reached page via POST (as by submitting a form via POST)
@@ -38,9 +38,27 @@ function get_symbols()
       {
         apologize("Please insert a correct share");
       }
-
-      $symbol = $_POST["symbol"];
+      
+      $symbol =strtoupper($_POST["symbol"]);
       $share = $_POST["share"];
+      $price = lookup($symbol)["price"];
+      $cash = CS50::query("SELECT `cash` FROM users WHERE id = ?", $_SESSION["id"]);
+
+      if ($cash < $share*$price)
+      {
+        apologize("You don't have enouth of money");
+      }
+      $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
+      $insert = CS50::query("UPDATE `users` SET `cash` = `cash` - ($share*$price)  WHERE `users`.`id` = ?",$positions[$i]["user_id"]);
+      $insert = CS50::query("INSERT INTO portfolio (user_id, symbol, share) VALUES($_SESSION['id'], $symbol, $share) ON DUPLICATE KEY UPDATE share = share + VALUES(share)");
+
+
+
+
+
+
+
+
       //dump($stock);
       $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
       //dump($positions);
