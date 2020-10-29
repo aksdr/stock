@@ -9,17 +9,18 @@
         width: auto;
     display: inline-block;
         ">
-            <button  class="btn btn1 btn-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Symbol
+            <button class="btn btn1 btn-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             <span class="caret"></span></button>
             <ul class="dropdown-menu " id="drop">
                 <?php
                 foreach ($symbols as $sym)
                 {
-                echo "<li class= 'dropdown-item ' ><a href='#'>{$sym}</a></li>";
+                echo "<li class= 'dropdown-item ' ><a href='#' class='dropselect' value='{$sym}'>{$sym}</a></li>";
                 }
                ?>
 
             </ul>
+            <input class="hidsym" type="hidden" name="symbol" value=" ">
         </div>
         <div class="help-block">Insert a share of company you want to sell</div>
         <div class="form-group">

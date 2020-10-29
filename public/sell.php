@@ -1,16 +1,23 @@
 <?php
 require("../includes/config.php");
 
-
-// if user reached page via GET (as by clicking a link or via redirect)
-    if ($_SERVER["REQUEST_METHOD"] == "GET")
-    {   
-        $symbols=[];
-        $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
+function get_symbols() 
+{
+    $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
+    $symbols =  [];
         foreach ($positions as $pos)
         {
             array_push($symbols,$pos["symbol"]);
         }
+        return $symbols;
+}
+
+
+// if user reached page via GET (as by clicking a link or via redirect)
+    if ($_SERVER["REQUEST_METHOD"] == "GET")
+    {   
+        $symbols=get_symbols();
+        
         //dump($symbols);
         // else render form
         render("sell_form.php", ["title" => "Sell", "stock_symbol"=> "","price" => "","selling"=>false,"positions"=>false,"symbols"=>$symbols]);
@@ -18,8 +25,8 @@ require("../includes/config.php");
 
     // else if user reached page via POST (as by submitting a form via POST)
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-      if (empty($_POST["Symbol"])) 
+    { 
+      if (empty($_POST["symbol"])) 
       {
           apologize("Please insert symbol");
       } 
@@ -27,7 +34,8 @@ require("../includes/config.php");
       {
           apologize("Please insert a share");
       } 
-      $symbol = $_POST["Symbol"];
+      
+      $symbol = $_POST["symbol"];
       $share = $_POST["share"];
       //dump($stock);
       $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
@@ -67,8 +75,9 @@ require("../includes/config.php");
         }
 
         //dump($shares);
-        
-      render ("sell_form.php", ["title" => "Sell", "positions"=> $positions,"share"=>$share,"Symbol"=>$symbol,"selling"=>true,"message"=>$message]);
+        $symbols=get_symbols();
+
+      render ("sell_form.php", ["title" => "Sell", "positions"=> $positions,"share"=>$share,"Symbol"=>$symbol,"selling"=>true,"message"=>$message,"symbols"=>$symbols]);
 
         
     }
