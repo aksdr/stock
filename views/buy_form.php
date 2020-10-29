@@ -9,7 +9,7 @@
         width: auto;
     display: inline-block;
         ">  
-        <input autofocus class="form-control dropdown-toggle hidsym" data-toggle="dropdown" name="symbol" placeholder="IBM" type="text"/>
+        <input autofocus class="form-control dropdown-toggle hidsym" data-toggle="dropdown" name="symbol" placeholder="IBM" type="text" value="IBM"/>
             
             <span class="caret"></span></button>
             <ul class="dropdown-menu " id="drop">

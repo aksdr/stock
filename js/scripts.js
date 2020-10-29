@@ -16,7 +16,9 @@
      e.preventDefault();
     
      console.log("click");
+     if (sellButton) {
     sellButton.innerHTML = this.innerHTML+"<span class='caret'></span>";
+     }
     hiddButt.value = this.innerHTML;
 
  }
