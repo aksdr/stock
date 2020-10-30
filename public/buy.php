@@ -57,10 +57,15 @@
         
         $insert = CS50::query("INSERT INTO `portfolio` (`user_id`, `symbol`, `share`) VALUES($id, '$symbol', $share) 
         ON DUPLICATE KEY UPDATE `share` = `share` + VALUES(`share`)");
-        
+    
         $symbols=get_symbols();
         $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $id);
-
+        for ($i = 0; $i < count($positions); $i++) 
+        {
+            $price = lookup($positions[$i]["symbol"]);
+            
+            $positions[$i]["price"] = $price["price"];
+        }
         render ("buy_form.php", ["title" => "Buy", "positions"=> $positions,
         "share"=>$share,"Symbol"=>$symbol,"selling"=>true,"message"=>$message,
         "symbols"=>$symbols]);
