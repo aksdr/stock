@@ -54,9 +54,10 @@
         
         $insert = CS50::query("UPDATE `users` SET `cash` = `cash` - ($share*$price)  WHERE `users`.`id` = ?"
         ,$id);
-        
+        $date = date("Ymd");
         $insert = CS50::query("INSERT INTO `portfolio` (`user_id`, `symbol`, `share`) VALUES($id, '$symbol', $share) 
         ON DUPLICATE KEY UPDATE `share` = `share` + VALUES(`share`)");
+         $insert = CS50::query("INSERT INTO `history` (`operation`, `symbol`, `share`,`Date`,`user_id`) VALUES('bought', '$symbol', $share,$date,$id)");
     
         $symbols=get_symbols();
         $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $id);

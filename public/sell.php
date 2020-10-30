@@ -45,6 +45,8 @@ function get_symbols()
       $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
       //dump($positions);
       $message = "You sold {$share} percents of {$symbol}<b/r>";
+      $date = date("Ymd");
+      $id = $_SESSION["id"];
         
         for ($i = 0; $i < count($positions); $i++) 
         {
@@ -57,12 +59,14 @@ function get_symbols()
                     $count = $positions[$i]["share"] - $share;
                     $insert = CS50::query("UPDATE `portfolio` SET `share` = ? WHERE `portfolio`.`id` = ?",$count,$positions[$i]["id"]);
                     $insert = CS50::query("UPDATE `users` SET `cash` = `cash` + ($share*$price)  WHERE `users`.`id` = ?",$positions[$i]["user_id"]);
+                    $insert = CS50::query("INSERT INTO `history` (`operation`, `symbol`, `share`,`Date`,`user_id`) VALUES('sold', '$symbol', $share,$date,$id)");
                 }
                 else if ($positions[$i]["share"] == $share)
                 {
                     $price = lookup($positions[$i]["symbol"])["price"];
                     $insert = CS50::query("DELETE FROM `portfolio` WHERE `portfolio`.`id` = ?",$positions[$i]["id"]);
                     $insert = CS50::query("UPDATE `users` SET `cash` = `cash` + ($share*$price)  WHERE `users`.`id` = ?",$positions[$i]["user_id"]);
+                    $insert = CS50::query("INSERT INTO `history` (`operation`, `symbol`, `share`,`Date`,`user_id`) VALUES('sold', '$symbol', $share,$date,$id)");
                 }
                 else 
                 {
@@ -71,7 +75,7 @@ function get_symbols()
                 }
             }
         }
-
+        
         $shares = CS50::query("SELECT `share` FROM portfolio WHERE user_id = ? && symbol = ?",$_SESSION["id"],$symbol);
         $positions = CS50::query("SELECT * FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
         
