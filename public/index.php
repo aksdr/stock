@@ -15,6 +15,6 @@
     //dump($positions);
 
     // render portfolio
-    render("portfolio.php", ["title" => "Portfolio","positions"=> $positions]);
+    render("portfolio.php", ["title" => "Portfolio","positions"=> $positions,"placement"=>""]);
 
 ?>
